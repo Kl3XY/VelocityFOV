@@ -53,9 +53,7 @@ public class ElytraSpeedFov implements ModInitializer {
 						use_time = 60;
 					}
 				}
-			}
 
-			if (!player.isOnGround()) {
 				if (use_time > 0) {
 					use_time -= 1;
 					finalFovEdit += 0.1f;
@@ -63,7 +61,9 @@ public class ElytraSpeedFov implements ModInitializer {
 				LOGGER.info(String.valueOf(finalFovEdit));
 				var get = inst.esf$getFovMultiplier();
 				inst.esf$setFovMultiplier(finalFovEdit);
-			} else {
+			}
+
+			if (player.isOnGround()) {
 				use_time = 0;
 			}
 		});
