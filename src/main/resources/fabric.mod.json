@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "elytraspeedfov",
+	"version": "${version}",
+	"name": "Velocity FOV",
+	"description": "Makes the FOV adapt to your elytra speed",
+	"authors": [
+		"Kl3XY"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/elytraspeedfov/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"esf.kl3xy.ElytraSpeedFov"
+		],
+		"fabric-datagen": [
+			"esf.kl3xy.ElytraSpeedFovDataGenerator"
+		]
+	},
+	"mixins": [
+		"elytraspeedfov.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.3",
+		"minecraft": "~1.21.10",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
