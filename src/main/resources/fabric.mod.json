@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "elytraspeedfov",
-	"version": "${version}",
+	"version": "1.0.1",
 	"name": "Velocity FOV",
 	"description": "Makes the FOV adapt to your elytra speed",
 	"authors": [

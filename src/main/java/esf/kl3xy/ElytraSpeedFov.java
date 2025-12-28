@@ -14,6 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.apache.commons.logging.Log;
+import org.apache.logging.log4j.core.tools.CustomLoggerGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,8 @@ public class ElytraSpeedFov implements ModInitializer {
 	public static final String MOD_ID = "elytraspeedfov";
 
 	public static int use_time = 0;
+	public static float smoothed_add_fov = 0;
+	public static float add_fov = 0;
 
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
@@ -44,21 +47,24 @@ public class ElytraSpeedFov implements ModInitializer {
 			var finalFovEdit = 1f;
 
 			if (player.isGliding()) {
-				var speed = Math.clamp(player.getVelocity().length() - 0.5, 0, 0.35) ;
-				finalFovEdit += speed;
+				var currentSpeed = player.getVelocity().length();
+				var maxSpeed = 3;
+				var startSpeed = 1;
+				var percentage = (currentSpeed) / 3;
+				finalFovEdit += 0.45f * percentage;
 
 				var item = player.getMainHandStack().getItem();
 				if (item instanceof FireworkRocketItem) {
 					if (client.options.useKey.isPressed()) {
 						use_time = 60;
+						smoothed_add_fov = 0.2f;
 					}
 				}
 
-				if (use_time > 0) {
-					use_time -= 1;
-					finalFovEdit += 0.1f;
-				}
-				LOGGER.info(String.valueOf(finalFovEdit));
+				smoothed_add_fov = lerp(smoothed_add_fov, 0, 0.01f);
+
+				finalFovEdit += smoothed_add_fov;
+
 				var get = inst.esf$getFovMultiplier();
 				inst.esf$setFovMultiplier(finalFovEdit);
 			}
@@ -67,9 +73,9 @@ public class ElytraSpeedFov implements ModInitializer {
 				use_time = 0;
 			}
 		});
+	}
 
-
-
-		LOGGER.info("Hello Fabric world!");
+	public static float lerp(float point1, float point2, float fraction) {
+		return (1 - fraction) * point1 + fraction * point2;
 	}
 }
