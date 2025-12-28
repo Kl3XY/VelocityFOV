@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "elytraspeedfov:item/flaming_death_sword"
-  }
-}
